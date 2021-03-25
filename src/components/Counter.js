@@ -21,11 +21,13 @@ STEP 0:
 STEP 1:
   Using the state hook, create a 'count', 'setCount' pair.
   The 'count' state should be initialized to the number zero.
+  */
 
-STEP 2:
+/*STEP 2:
   The 'style' object has the 'color' property hard-coded to "royalblue".
   What the value of 'color' should be instead is a ternary expression that goes like this:
   If count is even, then "royalblue", else "crimson".
+
 
 STEP 3:
   We need to replace some hard-coded info in the JSX with expressions, interpolated inside curly brackets.
@@ -45,39 +47,54 @@ STEP 5:
 STEP 6:
   This click handler needs to use 'setCount' to set the 'count' to be zero again.
 */
+import React, { useState } from 'react'
 
-import React from 'react'; /* STEP 0 */
-
-export default function Counter() {
+export default function Counter () {
   /* STEP 1 */
+  const [count, setCount] = useState(0)
 
   const increment = () => {
-    /* STEP 4 */
-  };
+    setCount(count + 1)
+  }
   const decrement = () => {
-    /* STEP 5 */
-  };
+    setCount(count - 1)
+  }
   const reset = () => {
-    /* STEP 6 */
-  };
+    setCount(0)
+  }
 
+  function isEven (numToCheck) {
+    let even = numToCheck % 2 === 0 ? true : false
+    return even
+  }
   const style = {
     fontSize: '1.5em',
-    marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
-  };
+    marginBottom: '0.3em'
+    //  color: ${isEven(count)?{color:'royalblue'}:{color:'crimson'}} /* STEP 2 */
+  }
 
   return (
     <div className='widget-counter container'>
-      <h2>Counter</h2>
-      <div id='count' style={style}>
-        Number 0 is even {/* STEP 3 */}
-      </div>
+      <h2> Counter </h2>{' '}
+      <div
+        id='count'
+        style={
+          (style, isEven(count) ? { color: 'royalblue' } : { color: 'crimson' })
+        }
+      >
+        Number {count} is {isEven(count) ? 'even' : 'odd'}
+      </div>{' '}
       <div>
-        <button id='increment' onClick={increment}>Increment</button>
-        <button id='decrement' onClick={decrement}>Decrement</button>
-        <button id='resetCount' onClick={reset}>Reset</button>
-      </div>
+        <button id='increment' onClick={increment}>
+          Increment{' '}
+        </button>{' '}
+        <button id='decrement' onClick={decrement}>
+          Decrement{' '}
+        </button>{' '}
+        <button id='resetCount' onClick={reset}>
+          Reset{' '}
+        </button>{' '}
+      </div>{' '}
     </div>
-  );
+  )
 }
